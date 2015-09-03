@@ -1,3 +1,5 @@
+package io;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,7 +14,7 @@ public class FileChannelExample {
 public static void main(String[] args) {
   FileInputStream fileInputStream = null;
   try {
-    fileInputStream = new FileInputStream("src/tmp.txt");
+    fileInputStream = new FileInputStream("src/main/java/io/tmp.txt");
     FileChannel fileChannel = fileInputStream.getChannel();
     int size = (int) fileChannel.size();
     ByteBuffer buffer = ByteBuffer.allocate(size);
