@@ -1,3 +1,5 @@
+package concurrency.semaphore;
+
 import java.util.Vector;
 
 public class Koekjes {

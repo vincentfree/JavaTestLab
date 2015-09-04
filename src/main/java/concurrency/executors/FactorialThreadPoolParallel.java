@@ -1,3 +1,5 @@
+package concurrency.executors;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,16 +43,14 @@ public class FactorialThreadPoolParallel implements Callable<BigInteger> {
       try {
         BigInteger b = f.get();
         result = result.multiply(b);
-      } catch (InterruptedException e) {
-          e.printStackTrace();
-      } catch (ExecutionException e) {
+      } catch (InterruptedException | ExecutionException e) {
           e.printStackTrace();
       }
     }
 
     final long endTime = System.currentTimeMillis();
     System.out.println("Result " + result);
-    System.out.println("Duration " + (endTime - startTime));
+    System.out.println("Duration " + (endTime - startTime)+" ms");
     executorService.shutdown();
   }
 

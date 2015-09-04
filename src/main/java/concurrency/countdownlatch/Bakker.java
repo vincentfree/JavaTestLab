@@ -1,3 +1,5 @@
+package concurrency.countdownlatch;
+
 import java.util.concurrent.CountDownLatch;
 
 public class Bakker implements Runnable {

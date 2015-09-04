@@ -1,3 +1,7 @@
+package concurrency.semaphore;
+
+import concurrency.semaphore.Feest;
+
 import java.util.concurrent.Semaphore;
 
 public class Koekiemonster implements Runnable {

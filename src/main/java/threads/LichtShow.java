@@ -1,3 +1,5 @@
+package threads;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -7,9 +9,10 @@ public class LichtShow extends Frame {
         super("Lichtshow");
         setLayout(new GridLayout(1, 8));
         addWindowListener(new WindowAdapter() {
-                            public void windowClosing(WindowEvent e) {
-                                System.exit(0);
-                            }});
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
 
         LichtPanel[] verlichting = new LichtPanel[8];
 
@@ -22,7 +25,7 @@ public class LichtShow extends Frame {
         verlichting[6] = new LichtPanel(Color.red);
         verlichting[7] = new LichtPanel(Color.yellow);
 
-        for (int i=0; i<verlichting.length; i++) {
+        for (int i = 0; i < verlichting.length; i++) {
             add(verlichting[i]);
             new Thread(verlichting[i]).start();
         }
@@ -40,7 +43,12 @@ public class LichtShow extends Frame {
 class LichtPanel extends Panel implements Runnable {
 
     private Color mijnKleur;
-    
+    public final static Object slot;
+
+    static {
+        slot = new Object();
+    }
+
     public LichtPanel(Color c) {
         setBackground(Color.black);
         mijnKleur = c;
@@ -49,20 +57,29 @@ class LichtPanel extends Panel implements Runnable {
     public void run() {
         while (true) {
             wacht();
+            synchronized (slot) {
+                try{
+                    slot.wait(10);
+                }
+                catch (InterruptedException ie){
+                    ie.printStackTrace();
+                }
 
-            // ***** BEGIN KRITISCHE CODE *****
-            setBackground(mijnKleur);
-            repaint();
-            wacht();
-            setBackground(Color.black);
-            repaint();
-            // *****  EINDE KRITISCHE CODE  *****
+                // ***** BEGIN KRITISCHE CODE *****
+                setBackground(mijnKleur);
+                repaint();
+                wacht();
+                setBackground(Color.black);
+                repaint();
+                // *****  EINDE KRITISCHE CODE  *****
+                slot.notify();
+            }
         }
     }
 
     private void wacht() {
         try {
-            long slaapTijd = (long)(Math.random() * 1000) + 100;
+            long slaapTijd = (long) (Math.random() * 1000) + 100;
             Thread.sleep(slaapTijd);
         } catch (InterruptedException e) {
         }
