@@ -7,9 +7,7 @@ BEGIN
 DECLARE finished INT DEFAULT false;
 DECLARE v_naam varchar(30) default "";
 declare	c_vraagnaam cursor for
-	select naam
-	from j_klanten
-	where klantnr = f_klantnummer;
+	select naam	from j_klanten where klantnr = f_klantnummer;
 declare continue handler for not found set finished = TRUE;
 	open c_vraagnaam;
 	fetch c_vraagnaam into v_naam;
