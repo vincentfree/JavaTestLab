@@ -1,3 +1,7 @@
+package jdbc.opgaven;
+
+import jdbc.MijnConnectie;
+
 import java.sql.*;
 
 
@@ -9,7 +13,7 @@ public class SaldoApplicatie
     Connection conn = MijnConnectie.connect();
     Statement stMut = conn.createStatement(); // pas deze regel aan
     
-	  ResultSet rsMut = st.executeQuery
+	  ResultSet rsMut = stMut.executeQuery
 		  ("select klantnr, mutatie from j_saldomutatie for update");
     
 	  PreparedStatement psKlan = conn.prepareStatement

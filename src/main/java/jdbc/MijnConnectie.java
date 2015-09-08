@@ -10,7 +10,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
  */
 public class MijnConnectie {
 
-    static Connection connect() {
+    public static Connection connect() {
         try {
             DataSource ds = new MysqlDataSource();
             ((MysqlDataSource) ds).setURL("jdbc:mysql://localhost:3306/javacursus");
